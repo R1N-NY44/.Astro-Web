@@ -1,0 +1,48 @@
+---
+import HomePage from "../layouts/Home.astro";
+import NewsPage from "../layouts/News.astro";
+import GuidePage from "../layouts/Guide.astro";
+import Layout from "../layouts/LandingLayout.astro";
+
+// Array halaman dengan mapping komponen
+const pages = [
+	{ name: "Home", component: HomePage },
+	{ name: "News", component: NewsPage },
+	{ name: "Build", component: GuidePage },
+];
+---
+
+<Layout title="Landing Page">
+	<input type="text" name="navName" id="" value={pages.map((page) => page.name).join(", ")} readonly>
+	<!-- <input type="text" name="navName" id="" value={
+		pages.map((page) => (
+			<button class="text-black bg-white p-2 mx-2">
+				{page.name}
+			</button>
+		))
+	}>
+	<input type="text" name="navPage" id=""> -->
+	<div class="w-full">
+		<!-- Loop tombol -->
+		<div class="w-full bg-black p-10 top-0">
+			{
+				pages.map((page) => (
+					<button class="text-black bg-white p-2 mx-2">
+						{page.name}
+					</button>
+				))
+			}
+		</div>
+
+		<!-- Loop konten -->
+		<div class="w-full">
+			{
+				pages.map((page) => (
+					<div class="p-10 border border-gray-300">
+						<page.component />
+					</div>
+				))
+			}
+		</div>
+	</div>
+</Layout>

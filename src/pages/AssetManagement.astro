@@ -1,0 +1,144 @@
+---
+import Layout from "../layouts/LandingLayout.astro";
+---
+
+<Layout title="Landing Page">
+    <div
+        x-data="{ tab: 'Home' }"
+        class="w-full min-h-screen bg-black text-white flex flex-col items-center"
+    >
+        <div
+            class="w-full max-w-[95%] md:max-w-[80%] mt-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-lg"
+        >
+            <div>
+                <div class="w-full flex justify-end">
+                    <!-- Button Trigger Modal -->
+                    <button
+                        id="openModal"
+                        class="px-4 py-2 transition-all duration-300 rounded-lg bg-white text-black font-semibold shadow-md hover:bg-white/20"
+                        >Add Data</button
+                    >
+                </div>
+
+                <!-- Table -->
+                <div class="w-full mt-6">
+                    <table class="w-full border border-white/20">
+                        <thead>
+                            <tr>
+                                <th class="border-b border-white/20 p-2"
+                                    >Name</th
+                                >
+                                <th class="border-b border-white/20 p-2"
+                                    >Type</th
+                                >
+                                <th class="border-b border-white/20 p-2"
+                                    >Location</th
+                                >
+                                <th class="border-b border-white/20 p-2"
+                                    >Action</th
+                                >
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border-b border-white/20 p-2"
+                                    >Asset 1</td
+                                >
+                                <td class="border-b border-white/20 p-2"
+                                    >Type 1</td
+                                >
+                                <td class="border-b border-white/20 p-2"
+                                    >Location 1</td
+                                >
+                                <td
+                                    class="border-b border-white/20 p-2 flex justify-center gap-8"
+                                >
+                                    <button
+                                        class="px-4 py-2 transition-all duration-300 rounded-lg bg-white text-black font-semibold shadow-md hover:bg-white/20"
+                                        >Edit</button
+                                    >
+                                    <button
+                                        class="px-4 py-2 transition-all duration-300 rounded-lg bg-white text-black font-semibold shadow-md hover:bg-white/20"
+                                        >Delete</button
+                                    >
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        
+        <!-- Modal -->
+        <div
+            id="modal"
+            class="fixed inset-0 hidden items-center justify-center bg-opacity-50 bg-black/20 backdrop-blur-sm"
+        >
+            <div
+                class="w-full max-w-md p-6 rounded-lg shadow-lg relative"
+            >
+                <h1 class="text-xl font-bold">Add Data</h1>
+                <form class="mt-4">
+                    <div class="flex flex-col gap-4">
+                        <label for="name">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            class="p-2 rounded-lg border border-white/20"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-4 mt-4">
+                        <label for="type">Type</label>
+                        <input
+                            type="text"
+                            id="type"
+                            class="p-2 rounded-lg border border-white/20"
+                        />
+                    </div>
+                    <div class="flex flex-col gap-4 mt-4">
+                        <label for="location">Location</label>
+                        <input
+                            type="text"
+                            id="location"
+                            class="p-2 rounded-lg border border-white/20"
+                        />
+                    </div>
+                    <div class="flex justify-end mt-6">
+                        <button
+                            type="button"
+                            id="closeModal"
+                            class="px-4 py-2 transition-all duration-300 rounded-lg bg-gray-300 text-black font-semibold shadow-md hover:bg-gray-400"
+                            >Close</button
+                        >
+                        <button
+                            class="ml-2 px-4 py-2 transition-all duration-300 rounded-lg bg-white text-black font-semibold shadow-md hover:bg-white/20"
+                            >Add Data</button
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script type="module">
+        $(document).ready(function () {
+            $("#openModal").click(function () {
+                $("#modal").removeClass("hidden").addClass("flex");
+                console.log("open modal");
+            });
+
+            $("#closeModal").click(function () {
+                $("#modal").removeClass("flex").addClass("hidden");
+            });
+
+            // Tutup modal jika klik di luar area modal
+            $("#modal").click(function (e) {
+                if ($(e.target).is("#modal")) {
+                    $("#modal").removeClass("flex").addClass("hidden");
+                }
+            });
+        });
+    </script>
+</Layout>

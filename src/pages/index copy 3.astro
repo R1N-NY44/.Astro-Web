@@ -1,0 +1,67 @@
+---
+import HomePage from "../layouts/Home.astro";
+import NewsPage from "../layouts/News.astro";
+import GuidePage from "../layouts/Guide.astro";
+import Layout from "../layouts/LandingLayout.astro";
+
+// Array halaman dengan mapping komponen
+const pages = [
+	{ name: "Home", component: "HomePage" },
+	{ name: "News", component: "NewsPage" },
+	{ name: "Build", component: "GuidePage" },
+];
+---
+
+<Layout title="Landing Page">
+	<input
+		type="text"
+		name="navName"
+		id=""
+		value={pages.map((page) => page.name).join(", ")}
+		readonly
+	/>
+	<input
+		type="text"
+		name="navPage"
+		id=""
+		value={pages.map((page) => page.component).join(", ")}
+		readonly
+	/>
+
+	<input
+		type="text"
+		name="navName"
+		id="navName"
+		value="Home, News, Build"
+		readonly
+		class="hidden"
+	/>
+
+	<div
+		class="w-full"
+		x-data="{ 
+			tab: 'HomePage', 
+			pages: [] 
+		}"
+		x-init="pages = document.getElementById('navName').value.split(', ')"
+	>
+		<!-- Navigasi -->
+		<div>
+			<template x-for="page in pages" :key="page">
+				<button
+					class="text-black bg-white p-2 mx-2"
+					@click="tab = page"
+					:class="{ 'bg-blue-500 text-white': tab === page }"
+					x-text="page"
+				>
+				</button>
+			</template>
+		</div>
+
+		<!-- Konten yang berubah sesuai tab -->
+		<!-- <div class="mt-4 p-4 border">
+			<p x-text="'Tab aktif: ' + tab"></p>
+		</div> -->
+		<div class="mt-4 p-4 border" x-html="'<x-text>Tab aktif: ' + tab + '</x-text>'"></div>
+	</div>
+</Layout>

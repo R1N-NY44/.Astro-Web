@@ -1,11 +1,49 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/LandingLayout.astro";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Home from "../layouts/Home.astro";
+import News from "../layouts/News.astro";
+import Guide from "../layouts/Guide.astro";
+// import AssetManage from '../layouts/Asset Manager/AssetManagement.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Landing Page">
+	<div
+		x-data="{ tab: 'Home' }"
+		class="w-full min-h-screen bg-black text-white flex flex-col items-center"
+	>
+		<!-- Navbar -->
+		<nav
+			class="w-full bg-white/10 backdrop-blur-md shadow-lg border border-white/20 rounded-lg p-4 flex justify-between items-center max-w-[95%] md:max-w-[80%] mt-6"
+		>
+			<h1 class="text-xl font-bold tracking-wide">My Website</h1>
+			<div class="flex space-x-4">
+				<template x-for="page in ['Home', 'News', 'Guide', 'Asset Management']">
+					<button
+						class="px-4 py-2 transition-all duration-300 rounded-lg"
+						:class="{ 'bg-white text-black font-semibold shadow-md': tab === page, 'text-gray-300 hover:bg-white/20': tab !== page }"
+						@click="tab = page"
+						x-text="page"></button>
+				</template>
+			</div>
+		</nav>
+
+		<!-- Tab Content -->
+		<div
+			class="w-full max-w-[95%] md:max-w-[80%] mt-8 p-6 bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-lg"
+		>
+			<template x-if="tab === 'Home'">
+				<Home />
+			</template>
+			<template x-if="tab === 'News'">
+				<News />
+			</template>
+			<template x-if="tab === 'Guide'">
+				<Guide />
+			</template>
+			<template x-if="tab === 'Asset Management'">
+				<!-- <AssetManage /> -->
+			</template>
+		</div>
+	</div>
 </Layout>

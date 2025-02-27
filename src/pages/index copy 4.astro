@@ -1,0 +1,43 @@
+---
+import HomePage from "../layouts/Home.astro";
+import NewsPage from "../layouts/News.astro";
+import GuidePage from "../layouts/Guide.astro";
+import Layout from "../layouts/LandingLayout.astro";
+
+const pages = [
+	{ name: "Home", component: HomePage },
+	{ name: "News", component: NewsPage },
+	{ name: "Build", component: GuidePage },
+];
+---
+
+<Layout title="Landing Page">
+	<!-- Alpine.js Tabs -->
+	<div x-data="{ tab: 'Home' }" class="w-full p-4">
+		<!-- Tab Navigation -->
+		<div class="flex border-b">
+			<template x-for="page in ['Home', 'News', 'Build']">
+				<button
+					class="px-4 py-2"
+					:class="{ 'border-b-2 border-blue-500 text-blue-500': tab === page, 'text-gray-500': tab !== page }"
+					@click="tab = page"
+					x-text="page"
+				>
+				</button>
+			</template>
+		</div>
+
+		<!-- Tab Content -->
+		<div class="mt-4 p-4 border">
+			<template x-if="tab === 'Home'">
+				<HomePage />
+			</template>
+			<template x-if="tab === 'News'">
+				<NewsPage />
+			</template>
+			<template x-if="tab === 'Build'">
+				<GuidePage />
+			</template>
+		</div>
+	</div>
+</Layout>
